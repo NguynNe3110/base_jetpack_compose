@@ -2,7 +2,6 @@ package com.uzuu.base_myproject_jetpackcompose.ui.component.navigation
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.DrawerState
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -29,7 +28,7 @@ fun AppNavigationDrawer(
                     label = { Text(item.label) },
                     selected = index == selectedIndex,
                     onClick = { onItemSelected(index) },
-                    icon = { Icon(if (index == selectedIndex) item.selectedIcon else item.icon, item.label) },
+                    icon = { AppNavigationIcon(item, index == selectedIndex) },
                 )
             }
         }

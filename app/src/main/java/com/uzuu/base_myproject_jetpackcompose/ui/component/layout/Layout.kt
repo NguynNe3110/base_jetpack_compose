@@ -2,8 +2,10 @@ package com.uzuu.base_myproject_jetpackcompose.ui.component.layout
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -23,6 +25,9 @@ fun AppScaffold(
     snackbarHostState: SnackbarHostState? = null,
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
+    containerColor: Color = AppThemeTokens.colors.background,
+    contentColor: Color = AppThemeTokens.colors.onBackground,
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     content: @Composable (PaddingValues) -> Unit,
 ) = Scaffold(
     modifier = modifier,
@@ -31,7 +36,9 @@ fun AppScaffold(
     snackbarHost = { snackbarHostState?.let { SnackbarHost(it) } },
     floatingActionButton = floatingActionButton,
     floatingActionButtonPosition = floatingActionButtonPosition,
-    containerColor = AppThemeTokens.colors.background,
+    containerColor = containerColor,
+    contentColor = contentColor,
+    contentWindowInsets = contentWindowInsets,
     content = content,
 )
 

@@ -10,6 +10,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedIconToggleButton
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -24,10 +25,10 @@ fun AppIconButton(
     colors: IconButtonColors? = null,
     content: @Composable () -> Unit,
 ) = when (style) {
-    AppIconButtonStyle.Standard -> IconButton(onClick = onClick, modifier = modifier, enabled = enabled, colors = colors ?: IconButtonDefaults.iconButtonColors(), content = content)
-    AppIconButtonStyle.Filled -> FilledIconButton(onClick = onClick, modifier = modifier, enabled = enabled, colors = colors ?: IconButtonDefaults.filledIconButtonColors(), content = content)
-    AppIconButtonStyle.Tonal -> FilledTonalIconButton(onClick = onClick, modifier = modifier, enabled = enabled, colors = colors ?: IconButtonDefaults.filledTonalIconButtonColors(), content = content)
-    AppIconButtonStyle.Outlined -> OutlinedIconButton(onClick = onClick, modifier = modifier, enabled = enabled, colors = colors ?: IconButtonDefaults.outlinedIconButtonColors(), content = content)
+    AppIconButtonStyle.Standard -> IconButton(onClick = onClick, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, colors = colors ?: IconButtonDefaults.iconButtonColors(), content = content)
+    AppIconButtonStyle.Filled -> FilledIconButton(onClick = onClick, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, colors = colors ?: IconButtonDefaults.filledIconButtonColors(), content = content)
+    AppIconButtonStyle.Tonal -> FilledTonalIconButton(onClick = onClick, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, colors = colors ?: IconButtonDefaults.filledTonalIconButtonColors(), content = content)
+    AppIconButtonStyle.Outlined -> OutlinedIconButton(onClick = onClick, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, colors = colors ?: IconButtonDefaults.outlinedIconButtonColors(), content = content)
 }
 
 @Composable
@@ -39,9 +40,9 @@ fun AppIconToggleButton(
     style: AppIconButtonStyle = AppIconButtonStyle.Standard,
     content: @Composable () -> Unit,
 ) = when (style) {
-    AppIconButtonStyle.Standard -> IconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, content = content)
-    AppIconButtonStyle.Filled -> FilledIconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, content = content)
-    AppIconButtonStyle.Tonal -> FilledTonalIconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, content = content)
-    AppIconButtonStyle.Outlined -> OutlinedIconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, content = content)
+    AppIconButtonStyle.Standard -> IconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, content = content)
+    AppIconButtonStyle.Filled -> FilledIconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, content = content)
+    AppIconButtonStyle.Tonal -> FilledTonalIconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, content = content)
+    AppIconButtonStyle.Outlined -> OutlinedIconToggleButton(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier.minimumInteractiveComponentSize(), enabled = enabled, content = content)
 }
 

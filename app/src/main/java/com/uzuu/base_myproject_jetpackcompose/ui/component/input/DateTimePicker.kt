@@ -9,6 +9,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -16,13 +17,17 @@ fun AppDatePickerDialog(
     state: DatePickerState,
     onConfirm: (Long?) -> Unit,
     onDismissRequest: () -> Unit,
-    confirmText: String = "OK",
-    dismissText: String = "Cancel",
-) = DatePickerDialog(
-    onDismissRequest = onDismissRequest,
-    confirmButton = { TextButton({ onConfirm(state.selectedDateMillis) }) { Text(confirmText) } },
-    dismissButton = { TextButton(onDismissRequest) { Text(dismissText) } },
-) { DatePicker(state = state) }
+    confirmText: String? = null,
+    dismissText: String? = null,
+) {
+    val actualConfirmText = confirmText ?: stringResource(android.R.string.ok)
+    val actualDismissText = dismissText ?: stringResource(android.R.string.cancel)
+    DatePickerDialog(
+        onDismissRequest = onDismissRequest,
+        confirmButton = { TextButton({ onConfirm(state.selectedDateMillis) }) { Text(actualConfirmText) } },
+        dismissButton = { TextButton(onDismissRequest) { Text(actualDismissText) } },
+    ) { DatePicker(state = state) }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

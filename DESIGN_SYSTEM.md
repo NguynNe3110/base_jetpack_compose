@@ -42,6 +42,21 @@ hard-coded color, text size, corner radius and spacing values in feature code.
 Every wrapper keeps `Modifier`, state, callbacks, enabled/error state and the
 relevant Material colors/shapes exposed, so one-off screens remain customizable.
 
+## Component sizing
+
+Use the component `size` parameter and `AppThemeTokens.dimensions` instead of
+forcing `Modifier.height` on controls. In particular, `AppTextField` provides:
+
+- `AppTextFieldSize.Standard`: minimum 56dp.
+- `AppTextFieldSize.Compact`: minimum 48dp with smaller internal padding and
+  typography. This is the supported compact input.
+
+Do not force an input below 48dp. A 40dp-or-smaller field cannot reliably fit
+text, cursor, label and font scaling, and it also violates the minimum touch
+target. If a mockup shows a 40dp visual container, keep a 48dp interaction area
+around it rather than shrinking the editable itself. Multi-line fields and
+fields with supporting text are allowed to grow beyond their minimum height.
+
 Not every experimental Material API should be wrapped pre-emptively. Add a new
 `App*` wrapper when the product first uses that API, keeping its defaults tied
 to the tokens above. This prevents a large unused compatibility surface while

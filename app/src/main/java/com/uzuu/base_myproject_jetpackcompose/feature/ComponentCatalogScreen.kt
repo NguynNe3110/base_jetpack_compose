@@ -50,6 +50,7 @@ import com.uzuu.base_myproject_jetpackcompose.ui.component.input.AppRadioButton
 import com.uzuu.base_myproject_jetpackcompose.ui.component.input.AppSlider
 import com.uzuu.base_myproject_jetpackcompose.ui.component.input.AppSwitch
 import com.uzuu.base_myproject_jetpackcompose.ui.component.input.AppTextField
+import com.uzuu.base_myproject_jetpackcompose.ui.component.input.AppTextFieldSize
 import com.uzuu.base_myproject_jetpackcompose.ui.component.layout.AppScaffold
 import com.uzuu.base_myproject_jetpackcompose.ui.component.navigation.AppNavigationBar
 import com.uzuu.base_myproject_jetpackcompose.ui.component.navigation.AppNavigationItem
@@ -143,6 +144,15 @@ private fun InputSamples() {
         placeholder = "Enter a value",
         supportingText = "Supporting text",
         singleLine = true,
+    )
+    AppTextField(
+        value = text,
+        onValueChange = { text = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = "Compact 48dp",
+        placeholder = "Safe compact input",
+        singleLine = true,
+        size = AppTextFieldSize.Compact,
     )
     Row(
         verticalAlignment = Alignment.CenterVertically,

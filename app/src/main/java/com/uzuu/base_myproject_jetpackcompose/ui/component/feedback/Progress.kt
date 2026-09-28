@@ -9,10 +9,18 @@ import androidx.compose.ui.Modifier
 fun AppCircularProgress(
     modifier: Modifier = Modifier,
     progress: (() -> Float)? = null,
-) = if (progress == null) CircularProgressIndicator(modifier) else CircularProgressIndicator(progress, modifier)
+) = if (progress == null) {
+    CircularProgressIndicator(modifier)
+} else {
+    CircularProgressIndicator(progress = { progress().coerceIn(0f, 1f) }, modifier = modifier)
+}
 
 @Composable
 fun AppLinearProgress(
     modifier: Modifier = Modifier,
     progress: (() -> Float)? = null,
-) = if (progress == null) LinearProgressIndicator(modifier) else LinearProgressIndicator(progress, modifier)
+) = if (progress == null) {
+    LinearProgressIndicator(modifier)
+} else {
+    LinearProgressIndicator(progress = { progress().coerceIn(0f, 1f) }, modifier = modifier)
+}

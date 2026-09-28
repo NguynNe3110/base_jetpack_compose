@@ -1,6 +1,8 @@
 package com.uzuu.base_myproject_jetpackcompose.ui.component.navigation
 
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
@@ -31,10 +33,28 @@ fun AppNavigationBar(
         NavigationBarItem(
             selected = index == selectedIndex,
             onClick = { onItemSelected(index) },
-            icon = { Icon(if (index == selectedIndex) item.selectedIcon else item.icon, item.label) },
+            icon = { AppNavigationIcon(item, index == selectedIndex) },
             label = { Text(item.label) },
             colors = colors,
         )
+    }
+}
+
+@Composable
+internal fun AppNavigationIcon(item: AppNavigationItem, selected: Boolean) {
+    val icon: @Composable () -> Unit = {
+        Icon(if (selected) item.selectedIcon else item.icon, item.label)
+    }
+    if (item.badge == null) {
+        icon()
+    } else {
+        BadgedBox(
+            badge = {
+                Badge {
+                    if (item.badge.isNotEmpty()) Text(item.badge)
+                }
+            },
+        ) { icon() }
     }
 }
 

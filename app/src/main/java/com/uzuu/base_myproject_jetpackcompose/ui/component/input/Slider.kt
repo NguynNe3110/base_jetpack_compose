@@ -19,7 +19,20 @@ fun AppSlider(
     steps: Int = 0,
     onValueChangeFinished: (() -> Unit)? = null,
     colors: SliderColors = SliderDefaults.colors(),
-) = Slider(value, onValueChange, modifier, enabled, valueRange, steps, onValueChangeFinished, colors)
+) {
+    require(valueRange.start < valueRange.endInclusive) { "valueRange must have a positive length" }
+    require(steps >= 0) { "steps cannot be negative" }
+    Slider(
+        value = value.coerceIn(valueRange),
+        onValueChange = onValueChange,
+        modifier = modifier,
+        enabled = enabled,
+        valueRange = valueRange,
+        steps = steps,
+        onValueChangeFinished = onValueChangeFinished,
+        colors = colors,
+    )
+}
 
 @Composable
 fun AppRangeSlider(
@@ -31,4 +44,19 @@ fun AppRangeSlider(
     steps: Int = 0,
     onValueChangeFinished: (() -> Unit)? = null,
     colors: SliderColors = SliderDefaults.colors(),
-) = RangeSlider(value, onValueChange, modifier, enabled, valueRange, steps, onValueChangeFinished, colors)
+) {
+    require(valueRange.start < valueRange.endInclusive) { "valueRange must have a positive length" }
+    require(steps >= 0) { "steps cannot be negative" }
+    val safeStart = value.start.coerceIn(valueRange)
+    val safeEnd = value.endInclusive.coerceIn(valueRange).coerceAtLeast(safeStart)
+    RangeSlider(
+        value = safeStart..safeEnd,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        enabled = enabled,
+        valueRange = valueRange,
+        steps = steps,
+        onValueChangeFinished = onValueChangeFinished,
+        colors = colors,
+    )
+}

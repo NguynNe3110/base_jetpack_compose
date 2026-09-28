@@ -15,6 +15,7 @@ object AppThemeTokens {
     val typography @Composable @ReadOnlyComposable get() = MaterialTheme.typography
     val shapes @Composable @ReadOnlyComposable get() = MaterialTheme.shapes
     val spacing @Composable @ReadOnlyComposable get() = LocalAppSpacing.current
+    val dimensions @Composable @ReadOnlyComposable get() = LocalAppComponentDimensions.current
 }
 
 @Composable
@@ -22,6 +23,7 @@ fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = false,
     spacing: AppSpacing = AppSpacing(),
+    dimensions: AppComponentDimensions = AppComponentDimensions(),
     content: @Composable () -> Unit,
 ) {
     val colors = when {
@@ -32,7 +34,10 @@ fun AppTheme(
         darkTheme -> AppDarkColors
         else -> AppLightColors
     }
-    CompositionLocalProvider(LocalAppSpacing provides spacing) {
+    CompositionLocalProvider(
+        LocalAppSpacing provides spacing,
+        LocalAppComponentDimensions provides dimensions,
+    ) {
         MaterialTheme(
             colorScheme = colors,
             typography = AppTypography,
