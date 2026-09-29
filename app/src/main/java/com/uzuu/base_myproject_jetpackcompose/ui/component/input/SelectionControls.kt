@@ -41,4 +41,5 @@ fun AppSwitch(
     thumbContent: (@Composable (() -> Unit))? = null,
     enabled: Boolean = true,
     colors: SwitchColors = SwitchDefaults.colors(),
-) = Switch(checked, onCheckedChange, modifier, thumbContent, enabled, colors)
+    interactionSource: MutableInteractionSource? = null,
+) = Switch(checked, onCheckedChange, modifier, thumbContent, enabled, colors, interactionSource)

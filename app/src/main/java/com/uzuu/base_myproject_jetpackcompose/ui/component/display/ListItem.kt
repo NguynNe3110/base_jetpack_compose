@@ -1,6 +1,7 @@
 package com.uzuu.base_myproject_jetpackcompose.ui.component.display
 
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -13,6 +14,29 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AppListItem(
+    headlineContent: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    supportingContent: (@Composable () -> Unit)? = null,
+    overlineContent: (@Composable () -> Unit)? = null,
+    leadingContent: (@Composable () -> Unit)? = null,
+    trailingContent: (@Composable () -> Unit)? = null,
+    colors: ListItemColors = ListItemDefaults.colors(),
+    tonalElevation: Dp = 0.dp,
+    shadowElevation: Dp = 0.dp,
+) = ListItem(
+    headlineContent = headlineContent,
+    modifier = modifier,
+    overlineContent = overlineContent,
+    supportingContent = supportingContent,
+    leadingContent = leadingContent,
+    trailingContent = trailingContent,
+    colors = colors,
+    tonalElevation = tonalElevation,
+    shadowElevation = shadowElevation,
+)
+
+@Composable
+fun AppListItem(
     headline: String,
     modifier: Modifier = Modifier,
     supportingText: String? = null,
@@ -22,7 +46,7 @@ fun AppListItem(
     colors: ListItemColors = ListItemDefaults.colors(),
     tonalElevation: Dp = 0.dp,
     shadowElevation: Dp = 0.dp,
-) = ListItem(
+) = AppListItem(
     headlineContent = { Text(headline) },
     modifier = modifier,
     overlineContent = overlineText?.let { { Text(it) } },
@@ -40,3 +64,10 @@ fun AppDivider(
     thickness: Dp = 1.dp,
     color: Color = androidx.compose.material3.DividerDefaults.color,
 ) = HorizontalDivider(modifier, thickness, color)
+
+@Composable
+fun AppVerticalDivider(
+    modifier: Modifier = Modifier,
+    thickness: Dp = 1.dp,
+    color: Color = androidx.compose.material3.DividerDefaults.color,
+) = VerticalDivider(modifier, thickness, color)

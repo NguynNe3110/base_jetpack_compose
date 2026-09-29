@@ -1,8 +1,9 @@
 package com.uzuu.base_myproject_jetpackcompose.ui.component.layout
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
@@ -23,6 +24,7 @@ fun AppScaffold(
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     snackbarHostState: SnackbarHostState? = null,
+    snackbarHost: @Composable () -> Unit = { snackbarHostState?.let { SnackbarHost(it) } },
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     containerColor: Color = AppThemeTokens.colors.background,
@@ -33,7 +35,7 @@ fun AppScaffold(
     modifier = modifier,
     topBar = topBar,
     bottomBar = bottomBar,
-    snackbarHost = { snackbarHostState?.let { SnackbarHost(it) } },
+    snackbarHost = snackbarHost,
     floatingActionButton = floatingActionButton,
     floatingActionButtonPosition = floatingActionButtonPosition,
     containerColor = containerColor,
@@ -50,13 +52,36 @@ fun AppSurface(
     contentColor: Color = AppThemeTokens.colors.onSurface,
     tonalElevation: Dp = 0.dp,
     shadowElevation: Dp = 0.dp,
+    border: BorderStroke? = null,
+    onClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource? = null,
     content: @Composable () -> Unit,
-) = Surface(
-    modifier = modifier,
-    shape = shape,
-    color = color,
-    contentColor = contentColor,
-    tonalElevation = tonalElevation,
-    shadowElevation = shadowElevation,
-    content = content,
-)
+) {
+    if (onClick == null) {
+        Surface(
+            modifier = modifier,
+            shape = shape,
+            color = color,
+            contentColor = contentColor,
+            tonalElevation = tonalElevation,
+            shadowElevation = shadowElevation,
+            border = border,
+            content = content,
+        )
+    } else {
+        Surface(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            shape = shape,
+            color = color,
+            contentColor = contentColor,
+            tonalElevation = tonalElevation,
+            shadowElevation = shadowElevation,
+            border = border,
+            interactionSource = interactionSource,
+            content = content,
+        )
+    }
+}

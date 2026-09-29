@@ -43,6 +43,9 @@ fun AppTextField(
     label: String? = null,
     placeholder: String? = null,
     supportingText: String? = null,
+    labelContent: (@Composable () -> Unit)? = null,
+    placeholderContent: (@Composable () -> Unit)? = null,
+    supportingContent: (@Composable () -> Unit)? = null,
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
     prefix: (@Composable () -> Unit)? = null,
@@ -90,9 +93,9 @@ fun AppTextField(
         AppTextFieldSize.Compact -> AppThemeTokens.dimensions.compactTextFieldHeight
         AppTextFieldSize.Standard -> AppThemeTokens.dimensions.textFieldHeight
     }
-    val labelContent: (@Composable () -> Unit)? = label?.let { value -> { Text(value) } }
-    val placeholderContent: (@Composable () -> Unit)? = placeholder?.let { value -> { Text(value) } }
-    val supportingContent: (@Composable () -> Unit)? = supportingText?.let { value -> { Text(value) } }
+    val actualLabel: (@Composable () -> Unit)? = labelContent ?: label?.let { value -> { Text(value) } }
+    val actualPlaceholder: (@Composable () -> Unit)? = placeholderContent ?: placeholder?.let { value -> { Text(value) } }
+    val actualSupporting: (@Composable () -> Unit)? = supportingContent ?: supportingText?.let { value -> { Text(value) } }
 
     CompositionLocalProvider(LocalTextSelectionColors provides actualColors.textSelectionColors) {
         BasicTextField(
@@ -120,13 +123,13 @@ fun AppTextField(
                         visualTransformation = visualTransformation,
                         interactionSource = actualInteractionSource,
                         isError = isError,
-                        label = labelContent,
-                        placeholder = placeholderContent,
+                        label = actualLabel,
+                        placeholder = actualPlaceholder,
                         leadingIcon = leadingIcon,
                         trailingIcon = trailingIcon,
                         prefix = prefix,
                         suffix = suffix,
-                        supportingText = supportingContent,
+                        supportingText = actualSupporting,
                         shape = shape,
                         colors = actualColors,
                         contentPadding = contentPadding,
@@ -139,13 +142,13 @@ fun AppTextField(
                         visualTransformation = visualTransformation,
                         interactionSource = actualInteractionSource,
                         isError = isError,
-                        label = labelContent,
-                        placeholder = placeholderContent,
+                        label = actualLabel,
+                        placeholder = actualPlaceholder,
                         leadingIcon = leadingIcon,
                         trailingIcon = trailingIcon,
                         prefix = prefix,
                         suffix = suffix,
-                        supportingText = supportingContent,
+                        supportingText = actualSupporting,
                         colors = actualColors,
                         contentPadding = contentPadding,
                         container = {

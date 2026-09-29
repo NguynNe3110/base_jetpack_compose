@@ -10,6 +10,18 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun AppTabRow(
+    selectedIndex: Int,
+    modifier: Modifier = Modifier,
+    scrollable: Boolean = false,
+    tabs: @Composable () -> Unit,
+) {
+    require(selectedIndex >= 0) { "selectedIndex cannot be negative" }
+    if (scrollable) PrimaryScrollableTabRow(selectedIndex, modifier = modifier, tabs = tabs)
+    else PrimaryTabRow(selectedIndex, modifier = modifier, tabs = tabs)
+}
+
+@Composable
+fun AppTabRow(
     titles: List<String>,
     selectedIndex: Int,
     onTabSelected: (Int) -> Unit,
@@ -25,6 +37,7 @@ fun AppTabRow(
             )
         }
     }
-    if (scrollable) PrimaryScrollableTabRow(selectedIndex, modifier = modifier, tabs = tabs)
-    else PrimaryTabRow(selectedIndex, modifier = modifier, tabs = tabs)
+    require(titles.isNotEmpty()) { "titles cannot be empty" }
+    require(selectedIndex in titles.indices) { "selectedIndex must point to an existing tab" }
+    AppTabRow(selectedIndex, modifier, scrollable, tabs)
 }

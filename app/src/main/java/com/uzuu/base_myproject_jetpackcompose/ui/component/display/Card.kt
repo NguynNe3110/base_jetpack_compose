@@ -1,6 +1,8 @@
 package com.uzuu.base_myproject_jetpackcompose.ui.component.display
 
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -31,23 +33,28 @@ fun AppCard(
         AppCardStyle.Elevated -> CardDefaults.elevatedCardElevation()
         AppCardStyle.Outlined -> CardDefaults.outlinedCardElevation()
     },
+    border: BorderStroke? = when (style) {
+        AppCardStyle.Outlined -> CardDefaults.outlinedCardBorder(enabled)
+        else -> null
+    },
+    interactionSource: MutableInteractionSource? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     when (style) {
         AppCardStyle.Filled -> if (onClick == null) {
-            Card(modifier = modifier, shape = shape, colors = colors, elevation = elevation, content = content)
+            Card(modifier = modifier, shape = shape, colors = colors, elevation = elevation, border = border, content = content)
         } else {
-            Card(onClick = onClick, modifier = modifier, enabled = enabled, shape = shape, colors = colors, elevation = elevation, content = content)
+            Card(onClick = onClick, modifier = modifier, enabled = enabled, shape = shape, colors = colors, elevation = elevation, border = border, interactionSource = interactionSource, content = content)
         }
         AppCardStyle.Elevated -> if (onClick == null) {
             ElevatedCard(modifier = modifier, shape = shape, colors = colors, elevation = elevation, content = content)
         } else {
-            ElevatedCard(onClick = onClick, modifier = modifier, enabled = enabled, shape = shape, colors = colors, elevation = elevation, content = content)
+            ElevatedCard(onClick = onClick, modifier = modifier, enabled = enabled, shape = shape, colors = colors, elevation = elevation, interactionSource = interactionSource, content = content)
         }
         AppCardStyle.Outlined -> if (onClick == null) {
-            OutlinedCard(modifier = modifier, shape = shape, colors = colors, elevation = elevation, content = content)
+            OutlinedCard(modifier = modifier, shape = shape, colors = colors, elevation = elevation, border = border ?: CardDefaults.outlinedCardBorder(), content = content)
         } else {
-            OutlinedCard(onClick = onClick, modifier = modifier, enabled = enabled, shape = shape, colors = colors, elevation = elevation, content = content)
+            OutlinedCard(onClick = onClick, modifier = modifier, enabled = enabled, shape = shape, colors = colors, elevation = elevation, border = border ?: CardDefaults.outlinedCardBorder(enabled), interactionSource = interactionSource, content = content)
         }
     }
 }

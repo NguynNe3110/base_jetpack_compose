@@ -18,7 +18,7 @@ enum class AppTopBarStyle { Small, Centered, Medium, Large }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopAppBar(
-    title: String,
+    title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     style: AppTopBarStyle = AppTopBarStyle.Small,
     navigationIcon: @Composable () -> Unit = {},
@@ -26,8 +26,28 @@ fun AppTopAppBar(
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) = when (style) {
-    AppTopBarStyle.Small -> TopAppBar(title = { Text(title) }, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
-    AppTopBarStyle.Centered -> CenterAlignedTopAppBar(title = { Text(title) }, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
-    AppTopBarStyle.Medium -> MediumTopAppBar(title = { Text(title) }, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
-    AppTopBarStyle.Large -> LargeTopAppBar(title = { Text(title) }, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
+    AppTopBarStyle.Small -> TopAppBar(title = title, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
+    AppTopBarStyle.Centered -> CenterAlignedTopAppBar(title = title, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
+    AppTopBarStyle.Medium -> MediumTopAppBar(title = title, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
+    AppTopBarStyle.Large -> LargeTopAppBar(title = title, modifier = modifier, navigationIcon = navigationIcon, actions = actions, colors = colors, scrollBehavior = scrollBehavior)
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppTopAppBar(
+    title: String,
+    modifier: Modifier = Modifier,
+    style: AppTopBarStyle = AppTopBarStyle.Small,
+    navigationIcon: @Composable () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    scrollBehavior: TopAppBarScrollBehavior? = null,
+) = AppTopAppBar(
+    title = { Text(title) },
+    modifier = modifier,
+    style = style,
+    navigationIcon = navigationIcon,
+    actions = actions,
+    colors = colors,
+    scrollBehavior = scrollBehavior,
+)
