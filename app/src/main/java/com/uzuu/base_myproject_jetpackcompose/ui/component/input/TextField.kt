@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import com.uzuu.base_myproject_jetpackcompose.ui.theme.AppThemeTokens
 
 enum class AppTextFieldStyle { Filled, Outlined }
@@ -73,6 +74,8 @@ fun AppTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     interactionSource: MutableInteractionSource? = null,
+    focusedBorderThickness: Dp = OutlinedTextFieldDefaults.FocusedBorderThickness,
+    unfocusedBorderThickness: Dp = OutlinedTextFieldDefaults.UnfocusedBorderThickness,
 ) {
     require(minLines >= 1) { "minLines must be at least 1" }
     require(maxLines >= minLines) { "maxLines must be greater than or equal to minLines" }
@@ -158,6 +161,8 @@ fun AppTextField(
                                 interactionSource = actualInteractionSource,
                                 colors = actualColors,
                                 shape = shape,
+                                focusedBorderThickness = focusedBorderThickness,
+                                unfocusedBorderThickness = unfocusedBorderThickness,
                             )
                         },
                     )

@@ -18,6 +18,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
@@ -60,7 +61,7 @@ import com.uzuu.base_myproject_jetpackcompose.ui.theme.AppThemeTokens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ComponentCatalogScreen() {
+fun ComponentCatalogScreen(onOpenPlayground: () -> Unit = {}) {
     var selectedNavigation by remember { mutableIntStateOf(0) }
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -77,6 +78,9 @@ fun ComponentCatalogScreen() {
             AppTopAppBar(
                 title = "App UI Kit",
                 actions = {
+                    AppIconButton(onClick = onOpenPlayground, style = AppIconButtonStyle.Standard) {
+                        Icon(Icons.Outlined.Tune, "Open component playground")
+                    }
                     AppIconButton(onClick = {}, style = AppIconButtonStyle.Standard) {
                         Icon(Icons.Outlined.MoreVert, "More")
                     }
