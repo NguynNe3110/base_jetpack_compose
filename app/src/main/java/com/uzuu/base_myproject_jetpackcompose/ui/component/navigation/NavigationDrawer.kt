@@ -8,6 +8,24 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+
+@Composable
+fun AppNavigationDrawer(
+    drawerState: DrawerState,
+    drawerContent: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    gesturesEnabled: Boolean = true,
+    scrimColor: Color = androidx.compose.material3.DrawerDefaults.scrimColor,
+    content: @Composable () -> Unit,
+) = ModalNavigationDrawer(
+    drawerContent = drawerContent,
+    modifier = modifier,
+    drawerState = drawerState,
+    gesturesEnabled = gesturesEnabled,
+    scrimColor = scrimColor,
+    content = content,
+)
 
 @Composable
 fun AppNavigationDrawer(
@@ -17,6 +35,7 @@ fun AppNavigationDrawer(
     onItemSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
     gesturesEnabled: Boolean = true,
+    scrimColor: Color = androidx.compose.material3.DrawerDefaults.scrimColor,
     header: (@Composable ColumnScope.() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) = ModalNavigationDrawer(
@@ -36,6 +55,7 @@ fun AppNavigationDrawer(
     modifier = modifier,
     drawerState = drawerState,
     gesturesEnabled = gesturesEnabled,
+    scrimColor = scrimColor,
     content = content,
 )
 

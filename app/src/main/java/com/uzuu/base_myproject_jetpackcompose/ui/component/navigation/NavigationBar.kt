@@ -7,11 +7,16 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 
 @Immutable
 data class AppNavigationItem(
@@ -19,6 +24,25 @@ data class AppNavigationItem(
     val icon: ImageVector,
     val selectedIcon: ImageVector = icon,
     val badge: String? = null,
+    val enabled: Boolean = true,
+    val alwaysShowLabel: Boolean = true,
+)
+
+@Composable
+fun AppNavigationBar(
+    modifier: Modifier = Modifier,
+    containerColor: Color = NavigationBarDefaults.containerColor,
+    contentColor: Color = androidx.compose.material3.contentColorFor(containerColor),
+    tonalElevation: Dp = NavigationBarDefaults.Elevation,
+    windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
+    content: @Composable RowScope.() -> Unit,
+) = NavigationBar(
+    modifier = modifier,
+    containerColor = containerColor,
+    contentColor = contentColor,
+    tonalElevation = tonalElevation,
+    windowInsets = windowInsets,
+    content = content,
 )
 
 @Composable
@@ -28,13 +52,25 @@ fun AppNavigationBar(
     onItemSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
     colors: NavigationBarItemColors = NavigationBarItemDefaults.colors(),
-) = NavigationBar(modifier = modifier) {
+    containerColor: Color = NavigationBarDefaults.containerColor,
+    contentColor: Color = androidx.compose.material3.contentColorFor(containerColor),
+    tonalElevation: Dp = NavigationBarDefaults.Elevation,
+    windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
+) = AppNavigationBar(
+    modifier = modifier,
+    containerColor = containerColor,
+    contentColor = contentColor,
+    tonalElevation = tonalElevation,
+    windowInsets = windowInsets,
+) {
     items.forEachIndexed { index, item ->
         NavigationBarItem(
             selected = index == selectedIndex,
             onClick = { onItemSelected(index) },
             icon = { AppNavigationIcon(item, index == selectedIndex) },
             label = { Text(item.label) },
+            enabled = item.enabled,
+            alwaysShowLabel = item.alwaysShowLabel,
             colors = colors,
         )
     }

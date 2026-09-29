@@ -86,7 +86,10 @@ fun AppButton(
     size: AppControlSize = AppControlSize.Standard,
     shape: Shape = MaterialTheme.shapes.medium,
     colors: ButtonColors? = null,
+    elevation: ButtonElevation? = null,
+    border: BorderStroke? = null,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    interactionSource: MutableInteractionSource? = null,
 ) = AppButton(
     onClick = onClick,
     modifier = modifier,
@@ -95,5 +98,8 @@ fun AppButton(
     size = size,
     shape = shape,
     colors = colors,
+    elevation = elevation,
+    border = border,
     contentPadding = contentPadding,
+    interactionSource = interactionSource,
 ) { Text(text) }

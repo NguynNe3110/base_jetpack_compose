@@ -61,3 +61,51 @@ Not every experimental Material API should be wrapped pre-emptively. Add a new
 `App*` wrapper when the product first uses that API, keeping its defaults tied
 to the tokens above. This prevents a large unused compatibility surface while
 preserving a single design-system boundary.
+
+## Component API rules
+
+The component layer follows a slot-first API. Core overloads accept composable
+content for anything whose visual structure may vary; `String` and list-based
+overloads are conveniences for common screens. For example, a top bar title can
+be plain text or an arbitrary composable, and a dialog can replace every visual
+section and action.
+
+- Hoist state and events to the caller. Components render state and report user
+  actions; they do not own feature state.
+- Keep `Modifier` on every public visual component and apply it to the outermost
+  node.
+- Expose semantic variants as explicit APIs (`AppSelectableSurface`,
+  `AppToggleableSurface`) rather than recreating selection with a plain click.
+- Expose component-specific styling (`colors`, `shape`, `border`, elevation,
+  insets, interaction source and dialog/popup properties) when Material offers
+  it.
+- Prefer slots over an ever-growing set of text/icon flags. Convenience
+  overloads must delegate to the slot-based core.
+- Isolate experimental Material APIs behind clearly named experimental wrappers,
+  such as `AppSliderWithSlots`, so normal callers remain stable.
+- It is valid to use a Material primitive directly while implementing a new
+  `App*` component inside this layer. Feature packages should not bypass this
+  layer merely to change styling.
+
+No wrapper can predict every future Material API or product interaction. The
+goal is therefore not a parameter for every imaginable case; it is stable
+defaults plus composable slots and a deliberate extension point when a genuinely
+new semantic component appears.
+
+```kotlin
+AppTopAppBar(
+    title = {
+        Column {
+            Text("Orders")
+            Text("3 pending", style = AppThemeTokens.typography.labelSmall)
+        }
+    },
+)
+
+AppTextField(
+    value = query,
+    onValueChange = onQueryChange,
+    labelContent = { Text("Search") },
+    supportingContent = { ValidationMessage(validation) },
+)
+```
